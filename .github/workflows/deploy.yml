@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Optional: Use environment for environment-specific secrets
+    # environment: production
     
     steps:
     - name: Checkout
@@ -35,15 +37,27 @@ jobs:
     - name: Build
       run: npm run build
       env:
-        # Add your environment variables here
+        # Method 1: Repository Secrets (Recommended for sensitive data)
+        # Access: Settings → Secrets and variables → Actions → Repository secrets
         REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}
         REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}
         REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
         REACT_APP_TO_EMAIL: ${{ secrets.REACT_APP_TO_EMAIL }}
-        REACT_APP_MECHANICAL_VIDEO_ID: ${{ secrets.REACT_APP_MECHANICAL_VIDEO_ID }}
-        REACT_APP_ELECTRICAL_VIDEO_ID: ${{ secrets.REACT_APP_ELECTRICAL_VIDEO_ID }}
-        REACT_APP_CIVIL_VIDEO_ID: ${{ secrets.REACT_APP_CIVIL_VIDEO_ID }}
-        REACT_APP_HERO_VIDEO_ID: ${{ secrets.REACT_APP_HERO_VIDEO_ID }}
+        
+        # Method 2: Repository Variables (For non-sensitive data)
+        # Access: Settings → Secrets and variables → Actions → Variables
+        REACT_APP_MECHANICAL_VIDEO_ID: ${{ vars.REACT_APP_MECHANICAL_VIDEO_ID }}
+        REACT_APP_ELECTRICAL_VIDEO_ID: ${{ vars.REACT_APP_ELECTRICAL_VIDEO_ID }}
+        REACT_APP_CIVIL_VIDEO_ID: ${{ vars.REACT_APP_CIVIL_VIDEO_ID }}
+        REACT_APP_HERO_VIDEO_ID: ${{ vars.REACT_APP_HERO_VIDEO_ID }}
+        
+        # Method 3: Hard-coded values (for public/non-sensitive data)
+        # REACT_APP_SITE_NAME: "RIVET"
+        # REACT_APP_API_URL: "https://api.rivet.com"
+        
+        # Method 4: Environment-specific secrets (uncomment 'environment: production' above)
+        # These would override repository secrets if both exist
+        # REACT_APP_PRODUCTION_API_KEY: ${{ secrets.REACT_APP_PRODUCTION_API_KEY }}
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
