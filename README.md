@@ -15,7 +15,7 @@ REACT_APP_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 
 # Email Configuration
 # The email address where form submissions will be sent
-REACT_APP_TO_EMAIL=kaushalayush3095@gmail.com
+REACT_APP_TO_EMAIL=<email>
 
 # Industry Videos Configuration
 # YouTube video IDs for the "We provide Workforce from" section
